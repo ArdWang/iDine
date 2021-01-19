@@ -14,6 +14,7 @@ struct ItemDetail: View {
     @EnvironmentObject var order: Order
     
     var body: some View {
+        
         VStack{
             
             ZStack(alignment: .bottomTrailing){

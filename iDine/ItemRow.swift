@@ -18,6 +18,7 @@ struct ItemRow: View {
             destination:ItemDetail(item: item)
             ){
             HStack{
+                
                 Image(item.thumbnailImage)
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color.gray, lineWidth:2))
@@ -25,9 +26,10 @@ struct ItemRow: View {
                 VStack(alignment: .leading){
                     Text(item.name).font(.headline)
                     Text(String("$\(item.price)"))
-                    
                 }
+                
                 Spacer()
+                
                 ForEach(item.restrictions, id: \.self){ restriction in
                     Text(restriction)
                         .font(.caption)

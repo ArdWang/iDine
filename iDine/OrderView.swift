@@ -11,6 +11,14 @@ struct OrderView: View {
     
     @EnvironmentObject var order: Order
     
+    static let paymentTypes = ["Cash","Credit Card","iDine Points"]
+    @State private var paymentType = 0
+    
+    
+    func deleteItems(at offsets: IndexSet){
+        order.items.remove(atOffsets: offsets)
+    }
+    
     var body: some View {
         NavigationView{
             List{
@@ -21,26 +29,25 @@ struct OrderView: View {
                             Spacer()
                             Text("$\(item.price)")
                         }
-                    }
+                    }.onDelete(perform:deleteItems)
                 }
                 
                 Section{
                     NavigationLink(
-                        destination: Text("Check out")){
+                        destination: CheckoutView()){
                         Text("Place Order")
                     }
-                }
+                }.disabled(order.items.isEmpty)
             }
             .navigationBarTitle("Order")
             .listStyle(GroupedListStyle())
+            .navigationBarItems(trailing: EditButton())
         }
     }
 }
 
 struct OrderView_Previews: PreviewProvider {
-    
     static let order = Order()
-    
     static var previews: some View {
         OrderView().environmentObject(order)
     }
